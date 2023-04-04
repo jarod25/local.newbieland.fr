@@ -140,6 +140,8 @@
       <path value="$PROJECT_DIR$/Symfony-project/vendor/symfony/monolog-bundle" />
       <path value="$PROJECT_DIR$/Symfony-project/vendor/symfony/dotenv" />
       <path value="$PROJECT_DIR$/Symfony-project/vendor/symfonycasts/verify-email-bundle" />
+      <path value="$PROJECT_DIR$/Symfony-project/vendor/symfony/google-mailer" />
+      <path value="$PROJECT_DIR$/Symfony-project/vendor/symfony/sendgrid-mailer" />
     </include_path>
   </component>
   <component name="PhpInterpreters">

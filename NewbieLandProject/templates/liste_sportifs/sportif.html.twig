@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sportif{% endblock %}
+
+{% block body %}
+    <h1>Sportif</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Nom</th>
+            <td>{{ sportif.nom }}</td>
+        </tr>
+        <tr>
+            <th>Prenom</th>
+            <td>{{ sportif.prenom }}</td>
+        </tr>
+        <tr>
+            <th>Sport</th>
+            <td>{{ sportif.sport }}</td>
+        </tr>
+        <tr>
+            <th>Médaille</th>
+            <td>{{ sportif.medal.getLabel() }}</td>
+        </tr>
+        <tr>
+            <th>Liste des événements</th>
+            <td>
+                {% if sportif.evenements is empty %}
+                    <p>Pas d'événements</p>
+                {% else %}
+                    <ul>
+                        {% for evenement in sportif.evenements %}
+                            <li>{{ evenement.nom }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Photo</th>
+            <td><img src="{{ vich_uploader_asset(sportif, 'imageFile') }}" alt="photo de {{ sportif.prenom }}" width="200"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-outline-dark m-2" href="{{ path('app_liste_sportifs') }}">back to list</a>
+{% endblock %}

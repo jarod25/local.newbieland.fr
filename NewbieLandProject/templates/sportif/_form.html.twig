@@ -1,0 +1,42 @@
+{% macro collection_item(form) %}
+<div data-palmares-target="field">
+    {{ form_row(form.competition) }}
+    {{ form_row(form.position) }}
+    {{ form_row(form.annee) }}
+    <button type="button" class="btn btn-outline-danger my-2"
+            data-action="palmares#removeItem">
+        Remove palmares
+    </button>
+    <hr>
+</div>
+{% endmacro %}
+
+{% import _self as formMacros %}
+
+{{ form_start(form) }}
+{{ form_row(form.nom) }}
+{{ form_row(form.prenom) }}
+{{ form_row(form.sport) }}
+{{ form_row(form.delegation) }}
+{{ form_row(form.evenements) }}
+{{ form_row(form.actualites) }}
+{{ form_row(form.medal) }}
+{{ form_row(form.imageFile) }}
+<hr>
+<div id="palmares" data-controller="palmares" data-palmares-prototype-value="{{ formMacros.collection_item(form.palmares.vars.prototype)|json_encode }}">
+    <h4>Palmares</h4>
+        <div class="mx-3">
+            <div data-palmares-target="fields">
+                {% do form.palmares.setRendered %}
+                {% for palmares in form.palmares %}
+                    {{ formMacros.collection_item(palmares) }}
+                {% else %}
+                    <p>No palmares</p>
+                {% endfor %}
+            </div>
+        </div>
+   <button type="button" class="add-btn btn btn-outline-primary my-2" data-action="palmares#addItem">Add palmares</button><br>
+    <hr>
+</div>
+<button class="btn btn-outline-success my-2 mt-2">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ 'Home Page' }}{% endblock %}
+{% block body %}
+<div class="row">
+    <h1>{{ 'Page d\'accueil ' }}</h1>
+    <p>{{ 'Bienvenue sur mon site' }}</p>
+
+    {{ form_start(form) }}
+    {{ form_end(form) }}
+    {% if events != null %}
+    <h2>{{ string }}</h2>
+    <ul>
+        {% for event in events %}
+            <li>
+                <a href="{{ path('app_liste_evenements_show', {'id': event.id}) }}">{{ event.nom }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        {{ string }}
+    <div class="text-center"><h1>Les actualités :</h1></div>
+    <div class="p-3">
+        <div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+            <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    {% for actus in actualites %}
+                        <div class="carousel-item{% if loop.first %} active{% endif %}">
+                            <div class="fs-3 fw-bold text-center">
+                                <h5>{{ actus.titre }}</h5>
+                                <a href="{{ path('app_liste_actualites_show', {'id': actus.id}) }}" class="btn btn-primary">Plus d'infos</a>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <div class="carousel-indicators p-0">
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-6">
+    <table>
+        <tr>
+            <h2>Les derniers événements</h2>
+            <ul>
+                {% for events in evenements_passe %}
+                    <li>
+                        <a href="{{ path('app_liste_evenements_show', {'id': events.id}) }}">{{ events.nom }}</a> - du {{ events.debut|date('d-m-Y H:i') }} au {{ events.fin|date('d-m-Y H:i') }}
+                    </li>
+                {% else %}
+                    <p>Pas d'événements récents</p>
+                {% endfor %}
+            </ul>
+        </tr>
+        <tr>
+            <h2>Les prochains événements</h2>
+            <ul>
+                {% for events in evenements %}
+                    <li>
+                        <a href="{{ path('app_liste_evenements_show', {'id': events.id}) }}">{{ events.nom }}</a> - du {{ events.debut|date('d-m-Y H:i') }} au {{ events.fin|date('d-m-Y H:i') }}
+                    </li>
+                    {% else %}
+                    <p>Pas de prochains événements prévus</p>
+                {% endfor %}
+            </ul>
+        </tr>
+        <h2><a href="{{ path('app_liste_evenements') }}">Voir tous les événements</a></h2>
+    </table>
+    </div>
+    <div class="col-md-6">
+    <div><h2>Top 3 des sportifs les plus médaillés</h2></div>
+    <table>
+        <tr>
+            <ul>
+                {% for sportif in sportifs %}
+                    <li>
+                        <a href="{{ path('app_liste_sportifs_show', {'id': sportif.id}) }}">{{ sportif.nom }} {{ sportif.prenom }}</a> - Sport : {{ sportif.sport }} - Pays : {{ sportif.delegation }}
+                    </li>
+                {% else %}
+                    <p>Pas de sportifs médaillés récement</p>
+                {% endfor %}
+            </ul>
+        </tr>
+    </table>
+    </div>
+</div>
+    {% endif %}
+{% endblock %}

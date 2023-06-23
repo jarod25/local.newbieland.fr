@@ -1,0 +1,78 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    mapp.menu_builder:
+        autowire: false
+        class:    App\Service\KnpMenuBuilderService
+        arguments: [ "@knp_menu.factory", "@security.authorization_checker" ]
+        tags:
+            - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
+
+    app.event_listener.evenement_update:
+        class: App\EventListener\EvenementUpdateListener
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate }
+
+    admin.user:
+        class: App\Admin\UserAdmin
+        arguments: [~, App\Entity\User, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Utilisateurs", label: "Utilisateurs" }
+
+    admin.actualite:
+        class: App\Admin\ActualiteAdmin
+        arguments: [~, App\Entity\Actualite, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Actualités", label: "Actualités" }
+
+    admin.evenement:
+        class: App\Admin\EvenementAdmin
+        arguments: [~, App\Entity\Evenement, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Événements", label: "Événements" }
+
+    admin.delegation:
+        class: App\Admin\DelegationAdmin
+        arguments: [~, App\Entity\Delegation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Délégations", label: "Délégations" }
+
+    admin.sport:
+        class: App\Admin\SportAdmin
+        arguments: [~, App\Entity\Sport, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Sports", label: "Sports" }
+
+    admin.sportif:
+        class: App\Admin\SportifAdmin
+        arguments: [~, App\Entity\Sportif, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Sportifs", label: "Sportifs" }
+
+    admin.ville:
+        class: App\Admin\VilleAdmin
+        arguments: [~, App\Entity\Ville, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Villes", label: "Villes" }

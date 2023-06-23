@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sportif index{% endblock %}
+
+{% block body %}
+    <h1>Sportif index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Medailles</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sportif in pagination %}
+            <tr>
+                <td>{{ sportif.id }}</td>
+                <td>{{ sportif.nom }}</td>
+                <td>{{ sportif.prenom }}</td>
+                <td>{{ sportif.medal.getLabel() }}</td>
+                <td>
+                    <a class="btn btn-outline-dark m-2" href="{{ path('app_sportif_show', {'id': sportif.id}) }}">show</a>
+                    <a class="btn btn-outline-dark m-2" href="{{ path('app_sportif_edit', {'id': sportif.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-outline-dark m-2" href="{{ path('app_sportif_new') }}">Create new</a>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sportif{% endblock %}
+
+{% block body %}
+    <h1>Sportif</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ sportif.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ sportif.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ sportif.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Medaille</th>
+                <td>{{ sportif.medal.getLabel() }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td><img src="{{ vich_uploader_asset(sportif, 'imageFile') }}" alt="photo de {{ sportif.prenom }}" width="200"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-outline-dark m-2" href="{{ path('app_sportif_index') }}">back to list</a>
+
+    <a class="btn btn-outline-dark m-2" href="{{ path('app_sportif_edit', {'id': sportif.id}) }}">edit</a>
+
+    {{ include('sportif/_delete_form.html.twig') }}
+{% endblock %}

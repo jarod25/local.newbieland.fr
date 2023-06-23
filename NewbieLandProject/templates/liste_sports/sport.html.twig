@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Sport</h1>
+
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ sport.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ sport.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Photo</th>
+                        <td><img src="{{ vich_uploader_asset(sport, 'imageFile') }}" alt="photo" width="200px"></td>
+                    </tr>
+                    <tr>
+                        <th>Liste des sportifs</th>
+                        <td>
+                            {% if sport.sportifs is empty %}
+                                <p>Il n'y a pas de sportifs pour ce sport</p>
+                            {% else %}
+                                <ul>
+                                    {% for sportif in sport.sportifs %}
+                                        <li>{{ sportif.nom }} {{ sportif.prenom }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Liste des événements</th>
+                        <td>
+                           {% if sport.evenements is empty %}
+                                <p>Il n'y a pas d'événements pour ce sport</p>
+                           {% else %}
+                                <ul>
+                                    {% for evenement in sport.evenements %}
+                                        <li>{{ evenement.nom }}</li>
+                                    {% endfor %}
+                                </ul>
+                           {% endif %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <a class="btn btn-outline-dark m-2" href="{{ path('app_liste_sports') }}">back to list</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

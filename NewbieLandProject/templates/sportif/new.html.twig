@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Sportif{% endblock %}
+
+{% block body %}
+    <h1>Create new Sportif</h1>
+
+    {{ include('sportif/_form.html.twig') }}
+
+    <a class="btn btn-outline-dark my-2" href="{{ path('app_sportif_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sportif index{% endblock %}
+
+{% block body %}
+    <h1>Sportif index</h1>
+    <div class="row text-center">
+    {% for sportif in pagination %}
+        <div class="col-4 my-3">
+        <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{ vich_uploader_asset(sportif, 'imageFile') }}" alt="photo de {{ sportif.prenom }}" width="200">
+        <div class="card-body">
+            <h5>{{ sportif.nom }}  {{ sportif.prenom }}</h5>
+            <a class="btn btn-outline-dark m-2" href="{{ path('app_liste_sportifs_show', {'id': sportif.id}) }}">show</a>
+        </div>
+    </div>
+    </div>
+    {% else %}
+        <h5>Pas de sportifs</h5>
+    {% endfor %}
+    </div>
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

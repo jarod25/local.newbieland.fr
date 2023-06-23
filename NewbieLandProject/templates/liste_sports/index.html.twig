@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sports index{% endblock %}
+
+{% block body %}
+    <h1>Sports index</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sport in pagination %}
+            <tr>
+                <td>{{ sport.nom }}</td>
+                <td>{{ sport.description }}</td>
+                <td>
+                    <a class="btn btn-outline-dark m-2" href="{{ path('app_liste_sports_show', {'id': sport.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

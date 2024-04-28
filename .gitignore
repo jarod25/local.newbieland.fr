@@ -59,3 +59,8 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 .env.local
+/public/*
+/public/images/
+/public/bundles/
+.idea/
+/public/

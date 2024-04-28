@@ -190,7 +190,7 @@ class Sport
     {
         if (!$this->actualites->contains($actualite)) {
             $this->actualites->add($actualite);
-            $actualite->setSport($this);
+            $actualite->addSport($this);
         }
 
         return $this;
@@ -200,8 +200,8 @@ class Sport
     {
         if ($this->actualites->removeElement($actualite)) {
             // set the owning side to null (unless already changed)
-            if ($actualite->getSport() === $this) {
-                $actualite->setSport(null);
+            if ($actualite->getSports() === $this) {
+                $actualite->removeSport($this);
             }
         }
 
@@ -210,6 +210,6 @@ class Sport
 
     public function __toString(): string
     {
-        return $this->nom;
+        return $this->nom ?? '';
     }
 }

@@ -177,7 +177,7 @@ class Actualite
 
     public function __toString(): string
     {
-        return $this->getTitre();
+        return $this->getTitre() ?? '';
     }
 
 }

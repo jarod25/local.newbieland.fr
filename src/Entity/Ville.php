@@ -75,6 +75,6 @@ class Ville
 
     public function __toString(): string
     {
-        return $this->libelle;
+        return $this->libelle ?? '';
     }
 }

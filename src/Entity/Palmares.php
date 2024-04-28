@@ -83,6 +83,6 @@ class Palmares
 
     public function __toString(): string
     {
-        return 'A la compétition ' . $this->competition . ', ce sportif à eu ' . $this->position->getLabel() . ' en ' . $this->annee->format('Y');
+        return 'A la compétition ' . $this->competition ?? ', ce sportif à eu ' . $this->position->getLabel() ?? ' en ' . $this->annee->format('Y')  ?? '';
     }
 }

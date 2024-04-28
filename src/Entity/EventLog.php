@@ -113,6 +113,6 @@ class EventLog
 
     public function __toString()
     {
-        return $this->class;
+        return $this->class ?? '';
     }
 }
